@@ -208,6 +208,14 @@ Cell[BoxData[{
           RowBox[{"[", "1", "]"}], "]"}], "<>", "\"\<:\>\""}], ",", 
         "\"\<Text\>\""}], "]"}], ",", "\[IndentingNewLine]", 
       RowBox[{"Spacer", "[", "5", "]"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Dynamic", "[", 
+       RowBox[{"Style", "[", 
+        RowBox[{
+         RowBox[{"ToString", "[", 
+          RowBox[{"Round", "[", 
+           RowBox[{"pVal", ",", "0.1"}], "]"}], "]"}], ",", "\"\<Text\>\""}], 
+        "]"}], "]"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Spacer", "[", "15", "]"}], ",", "\[IndentingNewLine]", 
       RowBox[{"Slider", "[", 
        RowBox[{
         RowBox[{"Dynamic", "[", 
@@ -229,18 +237,9 @@ Cell[BoxData[{
         RowBox[{"parameterSpecs", "[", 
          RowBox[{"[", 
           RowBox[{"{", 
-           RowBox[{"2", ",", "3"}], "}"}], "]"}], "]"}]}], "]"}], ",", 
-      "\[IndentingNewLine]", 
-      RowBox[{"Spacer", "[", "5", "]"}], ",", "\[IndentingNewLine]", 
-      RowBox[{"Dynamic", "[", 
-       RowBox[{"Style", "[", 
-        RowBox[{
-         RowBox[{"ToString", "[", 
-          RowBox[{"Round", "[", 
-           RowBox[{"pVal", ",", "0.1"}], "]"}], "]"}], ",", "\"\<Text\>\""}], 
-        "]"}], "]"}]}], "\[IndentingNewLine]", "}"}], "]"}]}], 
-  ";"}]}], "Input",
- CellLabel->"In[87]:=",ExpressionUUID->"904765fc-bbf2-4033-a9fa-a97aecb9d86f"]
+           RowBox[{"2", ",", "3"}], "}"}], "]"}], "]"}]}], "]"}], ","}], 
+     "\[IndentingNewLine]", "}"}], "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[65]:=",ExpressionUUID->"904765fc-bbf2-4033-a9fa-a97aecb9d86f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -268,16 +267,18 @@ Cell[CellGroupData[{
 Cell["Result", "Section",ExpressionUUID->"2cb2898d-c088-4756-b813-b73ebebc2ef9"],
 
 Cell[BoxData[
- RowBox[{"Column", "[", 
-  RowBox[{"{", "\[IndentingNewLine]", 
-   RowBox[{
-   "parameterSlider", ",", "\[IndentingNewLine]", "interpolationPlot"}], 
-   "\[IndentingNewLine]", "}"}], "]"}]], "Input",
- CellLabel->"In[90]:=",ExpressionUUID->"56494150-4905-410a-9bef-51e9a963d212"]
+ RowBox[{"Panel", "[", "\[IndentingNewLine]", 
+  RowBox[{"Column", "[", 
+   RowBox[{"{", "\[IndentingNewLine]", 
+    RowBox[{"parameterSlider", ",", "\[IndentingNewLine]", 
+     RowBox[{"Panel", "[", "interpolationPlot", "]"}]}], 
+    "\[IndentingNewLine]", "}"}], "]"}], "\[IndentingNewLine]", 
+  "]"}]], "Input",
+ CellLabel->"In[67]:=",ExpressionUUID->"56494150-4905-410a-9bef-51e9a963d212"]
 }, Open  ]]
 },
-WindowSize->{936, 908},
-WindowMargins->{{Automatic, -7}, {Automatic, 0}},
+WindowSize->{748, 908},
+WindowMargins->{{-7, Automatic}, {Automatic, 0}},
 Magnification:>1.1 Inherited,
 FrontEndVersion->"11.3 for Microsoft Windows (64-bit) (March 6, 2018)",
 StyleDefinitions->"Default.nb"
