@@ -1,0 +1,320 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.3' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     11034,        312]
+NotebookOptionsPosition[      9607,        278]
+NotebookOutlinePosition[      9978,        294]
+CellTagsIndexPosition[      9935,        291]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["User Definitions", "Section",ExpressionUUID->"606a9978-91aa-4ce4-8f68-db01c2390c35"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+  "modelName", "=", 
+   "\"\<Modelica.Electrical.Analog.Examples.CauerLowPassAnalog\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"plottedVariable", "=", "\"\<R2.v\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"parameterSpecs", "=", 
+   RowBox[{"{", 
+    RowBox[{"\"\<l2\>\"", ",", "0.1", ",", "10"}], "}"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"simulationInterval", "=", 
+   RowBox[{"{", 
+    RowBox[{"0", ",", "60"}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"interpolationPoints", "=", "30"}], ";"}]}], "Input",
+ CellLabel->"In[73]:=",ExpressionUUID->"64020e4c-e7a2-46d0-bd96-d837e8a361a5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Default Values", "Section",ExpressionUUID->"2a98aaf0-0954-45ce-98ea-81709d03f484"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"data", "=", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"parameterValues", "=", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"resInterpolation", "=", "Null"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"editing", "=", "False"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"pVal", "=", 
+   RowBox[{"parameterSpecs", "[", 
+    RowBox[{"[", "2", "]"}], "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[78]:=",ExpressionUUID->"c3094fe2-d753-4035-bfc7-40b00c179a82"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Functions", "Section",ExpressionUUID->"f3a36a68-e208-4059-96cb-9ebcac9d61c2"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"prependResults", "[", 
+    RowBox[{"pVal_", ",", "res_"}], "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"rawData", ",", "dataSamples"}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"rawData", "=", 
+       RowBox[{"res", "[", 
+        RowBox[{"\"\<RawData\>\"", ",", "plottedVariable"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"dataSamples", "=", 
+       RowBox[{"Join", "[", 
+        RowBox[{
+         RowBox[{"rawData", "[", 
+          RowBox[{"[", 
+           RowBox[{"1", ";;", 
+            RowBox[{"-", "1"}], ";;", 
+            RowBox[{"Ceiling", "[", 
+             RowBox[{
+              RowBox[{"Length", "[", "rawData", "]"}], "/", 
+              RowBox[{"(", 
+               RowBox[{"interpolationPoints", "-", "1"}], ")"}]}], "]"}]}], 
+           "]"}], "]"}], ",", 
+         RowBox[{"rawData", "[", 
+          RowBox[{"[", 
+           RowBox[{"{", 
+            RowBox[{"-", "1"}], "}"}], "]"}], "]"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"parameterValues", "=", 
+       RowBox[{"Append", "[", 
+        RowBox[{"parameterValues", ",", "pVal"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"data", "=", 
+       RowBox[{"Join", "[", 
+        RowBox[{"data", ",", 
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"sample", "[", 
+                RowBox[{"[", "1", "]"}], "]"}], ",", "pVal"}], "}"}], ",", 
+             RowBox[{"sample", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"sample", ",", "dataSamples"}], "}"}]}], "]"}]}], "]"}]}],
+       ";"}]}], "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"runSimulation", "[", "pVal_", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "res", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"res", "=", 
+       RowBox[{"SystemModelSimulate", "[", 
+        RowBox[{"modelName", ",", "simulationInterval", ",", 
+         RowBox[{"<|", 
+          RowBox[{"\"\<ParameterValues\>\"", "\[Rule]", " ", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"parameterSpecs", "[", 
+              RowBox[{"[", "1", "]"}], "]"}], "\[Rule]", " ", "pVal"}], 
+            "}"}]}], "|>"}]}], "]"}]}], ";", "\[IndentingNewLine]", "res"}]}],
+     "\[IndentingNewLine]", "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"updateInterpolation", "[", "]"}], ":=", 
+   RowBox[{"resInterpolation", "=", 
+    RowBox[{"Interpolation", "[", "data", "]"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"updatePlot", "[", "pVal_", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", "res", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"Not", "[", 
+        RowBox[{"FreeQ", "[", 
+         RowBox[{"parameterValues", ",", "pVal"}], "]"}], "]"}], ",", 
+       RowBox[{"Return", "[", "]"}]}], "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"res", "=", 
+      RowBox[{"runSimulation", "[", "pVal", "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"Not", "[", 
+        RowBox[{"SameQ", "[", 
+         RowBox[{
+          RowBox[{"Head", "[", "res", "]"}], ",", 
+          "SystemModelSimulationData"}], "]"}], "]"}], ",", 
+       RowBox[{"Return", "[", "]"}]}], "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"prependResults", "[", 
+      RowBox[{"pVal", ",", "res"}], "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"updateInterpolation", "[", "]"}], ";"}]}], 
+   "\[IndentingNewLine]", "]"}]}]}], "Input",
+ CellLabel->"In[83]:=",ExpressionUUID->"ecbf322c-31fd-479e-82c2-fd7e562a3aaa"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"interpolationPlot", "=", "\[IndentingNewLine]", 
+   RowBox[{"Dynamic", "[", 
+    RowBox[{"Plot", "[", 
+     RowBox[{
+      RowBox[{"resInterpolation", "[", 
+       RowBox[{"t", ",", "pVal"}], "]"}], ",", 
+      RowBox[{"Prepend", "[", 
+       RowBox[{"simulationInterval", ",", "t"}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"PlotRange", "\[Rule]", " ", "All"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"PlotStyle", "\[Rule]", 
+       RowBox[{"If", "[", 
+        RowBox[{"editing", ",", "Dashed"}], "]"}]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"PlotLegends", "\[Rule]", "plottedVariable"}]}], "]"}], "]"}]}],
+   ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"parameterSlider", "=", 
+   RowBox[{"Row", "[", 
+    RowBox[{"{", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Style", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"parameterSpecs", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "<>", "\"\<:\>\""}], ",", 
+        "\"\<Text\>\""}], "]"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Spacer", "[", "5", "]"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Slider", "[", 
+       RowBox[{
+        RowBox[{"Dynamic", "[", 
+         RowBox[{"pVal", ",", 
+          RowBox[{"{", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"pVal", "=", "#"}], ";", " ", 
+               RowBox[{"editing", "=", "True"}]}], ")"}], "&"}], ",", 
+            "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"updatePlot", "[", "pVal", "]"}], ";", " ", 
+               RowBox[{"editing", "=", "False"}]}], ")"}], "&"}]}], "}"}]}], 
+         "]"}], ",", 
+        RowBox[{"parameterSpecs", "[", 
+         RowBox[{"[", 
+          RowBox[{"{", 
+           RowBox[{"2", ",", "3"}], "}"}], "]"}], "]"}]}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"Spacer", "[", "5", "]"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Dynamic", "[", 
+       RowBox[{"Style", "[", 
+        RowBox[{
+         RowBox[{"ToString", "[", 
+          RowBox[{"Round", "[", 
+           RowBox[{"pVal", ",", "0.1"}], "]"}], "]"}], ",", "\"\<Text\>\""}], 
+        "]"}], "]"}]}], "\[IndentingNewLine]", "}"}], "]"}]}], 
+  ";"}]}], "Input",
+ CellLabel->"In[87]:=",ExpressionUUID->"904765fc-bbf2-4033-a9fa-a97aecb9d86f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Initialize", "Section",ExpressionUUID->"2cd1fcc1-859c-431c-ac86-25e5d38a9b89"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Map", "[", 
+   RowBox[{
+    RowBox[{"Function", "[", 
+     RowBox[{
+      RowBox[{"{", "pVal", "}"}], ",", 
+      RowBox[{"Quiet", "[", 
+       RowBox[{"updatePlot", "[", "pVal", "]"}], "]"}]}], "]"}], ",", 
+    RowBox[{"parameterSpecs", "[", 
+     RowBox[{"[", 
+      RowBox[{"{", 
+       RowBox[{"2", ",", "3"}], "}"}], "]"}], "]"}]}], "]"}], ";"}]], "Input",
+ CellLabel->"In[89]:=",ExpressionUUID->"17931039-4b3a-4be6-be93-24bb92af1cb6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Result", "Section",ExpressionUUID->"2cb2898d-c088-4756-b813-b73ebebc2ef9"],
+
+Cell[BoxData[
+ RowBox[{"Column", "[", 
+  RowBox[{"{", "\[IndentingNewLine]", 
+   RowBox[{
+   "parameterSlider", ",", "\[IndentingNewLine]", "interpolationPlot"}], 
+   "\[IndentingNewLine]", "}"}], "]"}]], "Input",
+ CellLabel->"In[90]:=",ExpressionUUID->"56494150-4905-410a-9bef-51e9a963d212"]
+}, Open  ]]
+},
+WindowSize->{936, 908},
+WindowMargins->{{Automatic, -7}, {Automatic, 0}},
+Magnification:>1.1 Inherited,
+FrontEndVersion->"11.3 for Microsoft Windows (64-bit) (March 6, 2018)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 90, 0, 73, "Section",ExpressionUUID->"606a9978-91aa-4ce4-8f68-db01c2390c35"],
+Cell[673, 24, 700, 20, 121, "Input",ExpressionUUID->"64020e4c-e7a2-46d0-bd96-d837e8a361a5"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1410, 49, 88, 0, 73, "Section",ExpressionUUID->"2a98aaf0-0954-45ce-98ea-81709d03f484"],
+Cell[1501, 51, 573, 15, 121, "Input",ExpressionUUID->"c3094fe2-d753-4035-bfc7-40b00c179a82"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2111, 71, 83, 0, 73, "Section",ExpressionUUID->"f3a36a68-e208-4059-96cb-9ebcac9d61c2"],
+Cell[2197, 73, 3938, 104, 451, "Input",ExpressionUUID->"ecbf322c-31fd-479e-82c2-fd7e562a3aaa"],
+Cell[6138, 179, 2442, 63, 319, "Input",ExpressionUUID->"904765fc-bbf2-4033-a9fa-a97aecb9d86f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8617, 247, 84, 0, 73, "Section",ExpressionUUID->"2cd1fcc1-859c-431c-ac86-25e5d38a9b89"],
+Cell[8704, 249, 475, 13, 32, "Input",ExpressionUUID->"17931039-4b3a-4be6-be93-24bb92af1cb6"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9216, 267, 80, 0, 73, "Section",ExpressionUUID->"2cb2898d-c088-4756-b813-b73ebebc2ef9"],
+Cell[9299, 269, 292, 6, 99, "Input",ExpressionUUID->"56494150-4905-410a-9bef-51e9a963d212"]
+}, Open  ]]
+}
+]
+*)
+
